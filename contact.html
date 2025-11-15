@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #0b1c36;
+            --bg-secondary: #142b55;
+            --accent: #00bfff;
+            --accent-hover: #0099cc;
+            --text-light: #ffffff;
+            --text-muted: #a0c4ff;
+            --border-radius: 14px;
+            --shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary), #0a162e);
+            color: var(--text-light);
+            min-height: 100vh;
+            padding: 30px 15px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid rgba(0, 191, 255, 0.15);
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(0, 191, 255, 0.2), transparent);
+            padding: 28px 20px;
+            text-align: center;
+        }
+
+        h1 Suburban {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .form-container {
+            padding: 28px 30px;
+        }
+
+        form {
+            display: grid;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #e0e7ff;
+            font-size: 0.88rem;
+        }
+
+        input, textarea {
+            padding: 11px 14px;
+            border: 1px solid rgba(0, 191, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-light);
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 0 2px rgba(0, 191, 255, 0.25);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #94a3b8;
+        }
+
+        textarea {
+            resize: none;
+            min-height: 90px;
+        }
+
+        .submit-btn {
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 191, 255, 0.3);
+        }
+
+        .submit-btn i {
+            font-size: 1rem;
+        }
+
+        .contact-info {
+            background: rgba(0, 0, 0, 0.15);
+            padding: 24px 30px 28px;
+            border-top: 1px solid rgba(0, 191, 255, 0.1);
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            color: var(--accent);
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 191, 255, 0.1);
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 191, 255, 0.2);
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 280px;
+            justify-content: center;
+        }
+
+        .contact-item:hover {
+            background: rgba(0, 191, 255, 0.16);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 191, 255, 0.2);
+        }
+
+        .contact-item i {
+            color: var(--accent);
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .contact-item a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.94rem;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 20px 10px;
+            }
+            .container {
+                max-width: 100%;
+            }
+            .header, .form-container, .contact-info {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Contact Me</h1>
+        </div>
+
+        <div class="form-container">
+            <form action="mailto:your-email@example.com" method="post" enctype="text/plain">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Hi, I'd like to..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    Send
+                </button>
+            </form>
+        </div>
+
+        <div class="contact-info">
+            <h3>Or Reach Me Now</h3>
+            
+            <div class="contact-methods">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:mdshahidulkhanpappo1999@gmail.com">Email Me</a>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:+8801914433835">Call +880 1914 433835</a>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <a href="https://wa.me/8801914433835" target="_blank">WhatsApp Chat</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
