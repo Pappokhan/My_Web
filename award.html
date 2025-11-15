@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My AI/ML Awards</title>
+<style>
+    body{
+        font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+        background:#0a1f44;color:#fff;margin:0;padding:0;
+    }
+    header{
+        background:#13295b;padding:30px 0;text-align:center;
+    }
+    header h1{color:#00bfff;margin:0;font-size:1.8rem;}
+    .gallery{
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+        gap:24px;padding:40px;
+        max-width:1400px;margin:0 auto;
+    }
+    .card{
+        background:#13295b;
+        border:2px solid #00bfff;
+        border-radius:12px;
+        text-align:center;
+        padding:16px;
+        overflow:hidden;
+        transition:transform .2s ease;
+        display:flex;
+        flex-direction:column;
+        justify-content:flex-start;
+    }
+    .card:hover{transform:scale(1.03);}
+    
+    .card h2{
+        margin:0 0 6px 0;
+        color:#00bfff;
+        font-size:1.05rem;
+        line-height:1.3;
+        font-weight:600;
+    }
+    .card h3{
+        margin:0 0 12px 0;
+        color:#a0d8ff;
+        font-size:0.88rem;
+        font-weight:500;
+        opacity:0.9;
+    }
+    .thumb{
+        position:relative;
+        overflow:hidden;
+        border-radius:8px;
+        cursor:pointer;
+        margin-top:auto;
+        flex-grow:1;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:#0a1f44;
+    }
+    .thumb img{
+        width:100%;height:auto;display:block;
+        max-height:220px;object-fit:contain;
+        transition:transform .3s ease;
+    }
+    .thumb:hover img{transform:scale(1.08);}
+    .overlay{
+        position:absolute;inset:0;
+        background:rgba(0,191,255,.15);
+        display:flex;align-items:center;justify-content:center;
+        opacity:0;transition:opacity .3s;
+        color:#fff;font-weight:600;font-size:0.95rem;
+        backdrop-filter:blur(1px);
+    }
+    .thumb:hover .overlay{opacity:1;}
+
+    /* Lightbox */
+    #lightbox{
+        position:fixed;inset:0;background:rgba(0,0,0,.92);
+        display:none;align-items:center;justify-content:center;
+        z-index:9999;padding:20px;
+        backdrop-filter:blur(4px);
+    }
+    #lightbox img{
+        max-width:92%;max-height:92vh;
+        border-radius:8px;
+        box-shadow:0 0 40px rgba(0,191,255,.7);
+    }
+    #closeLb{
+        position:absolute;top:20px;right:30px;color:#fff;font-size:2.2rem;
+        cursor:pointer;font-weight:300;
+        text-shadow:0 0 10px rgba(0,191,255,.5);
+    }
+    #closeLb:hover{transform:scale(1.1);}
+</style>
+</head>
+<body>
+
+<header><h1>Certificate and Awards</h1></header>
+
+<div class="gallery">
+    <!-- Card 1 -->
+    <div class="card">
+        <h2>Career Essentials in Generative AI by Microsoft and LinkedIn</h2>
+        <h3>Microsoft</h3>
+        <div class="thumb" data-full="0001.jpg">
+            <img src="0001.jpg" alt="Career Essentials in Generative AI">
+            <div class="overlay">Click to enlarge</div>
+        </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+        <h2>Machine Learning</h2>
+        <h3>IBM</h3>
+        <div class="thumb" data-full="0002.jpg">
+            <img src="0002.jpg" alt="Machine Learning">
+            <div class="overlay">Click to enlarge</div>
+        </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+        <h2>Python</h2>
+        <h3>HackerRank</h3>
+        <div class="thumb" data-full="0003.jpg">
+            <img src="0003.jpg" alt="Python">
+            <div class="overlay">Click to enlarge</div>
+        </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card">
+        <h2>Visualizing Filters of a CNN using TensorFlow</h2>
+        <h3>Coursera</h3>
+        <div class="thumb" data-full="0004.jpg">
+            <img src="0004.jpg" alt="Visualizing CNN Filters">
+            <div class="overlay">Click to enlarge</div>
+        </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card">
+        <h2>OpenCV Library</h2>
+        <h3>OpenCV University</h3>
+        <div class="thumb" data-full="0005.jpg">
+            <img src="0005.jpg" alt="OpenCV Library">
+            <div class="overlay">Click to enlarge</div>
+        </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="card">
+        <h2>ICSC Qualification Round 2025</h2>
+        <h3>International Computer Science Competition 2025</h3>
+        <div class="thumb" data-full="0006.jpg">
+            <img src="0006.jpg" alt="ICSC Qualification Round">
+            <div class="overlay">Click to enlarge</div>
+        </div>
+    </div>
+
+    <!-- Card 7 -->
+    <div class="card">
+        <h2>ICSC Pre-Final Round 2025</h2>
+        <h3>International Computer Science Competition 2025</h3>
+        <div class="thumb" data-full="0007.jpg">
+            <img src="0007.jpg" alt="ICSC Pre-Final Round">
+            <div class="overlay">Click to enlarge</div>
+        </div>
+    </div>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox">
+    <span id="closeLb">×</span>
+    <img id="lbImg" src="" alt="Full size certificate">
+</div>
+
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lbImg    = document.getElementById('lbImg');
+    const closeLb  = document.getElementById('closeLb');
+
+    document.querySelectorAll('.thumb').forEach(thumb => {
+        thumb.addEventListener('click', () => {
+            lbImg.src = thumb.dataset.full;
+            lightbox.style.display = 'flex';
+        });
+    });
+
+    closeLb.onclick = () => lightbox.style.display = 'none';
+    lightbox.onclick = e => { if(e.target === lightbox) lightbox.style.display = 'none'; };
+</script>
+
+</body>
+</html>
