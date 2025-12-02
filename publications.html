@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Name - Publications</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #3b82f6;
+      --accent-hover: #60a5fa;
+      --highlight: #5eead4;
+      --border: #334155;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(94, 234, 212, 0.1) 0%, transparent 20%);
+    }
+
+    /* Animated Background Grid */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="%23334155" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      animation: float 40s linear infinite;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(20px, 20px); }
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      padding: 6rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg at 50% 50%, transparent, rgba(59,130,246,0.1), transparent);
+      animation: rotate 30s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes rotate {
+      100% { transform: rotate(360deg); }
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 3.5rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #60a5fa, #5eead4);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: titleGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      from { filter: brightness(1); }
+      to { filter: brightness(1.3) drop-shadow(0 0 20px rgba(94,234,212,0.5)); }
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      margin-top: 1rem;
+      opacity: 0;
+      animation: fadeInUp 1s forwards 0.6s;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      padding: 1.5rem;
+      background: var(--card);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s forwards 0.9s;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 1rem 1rem 1rem 3.2rem;
+      background: #0a0e1a;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      color: white;
+      font-size: 1.05rem;
+      transition: all 0.4s;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(59,130,246,0.3);
+      transform: scale(1.02);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--accent);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+
+    select {
+      padding: 1rem 1.4rem;
+      background: #0a0e1a;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      color: white;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(59,130,246,0.2);
+    }
+
+    .stats {
+      color: var(--highlight);
+      font-weight: 700;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    #totalCount {
+      display: inline-block;
+      min-width: 40px;
+    }
+
+    .publication-list {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .pub-item {
+      background: var(--card);
+      padding: 2.2rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      border-left: 6px solid var(--accent);
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pub-item::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59,130,246,0.1), transparent);
+      transition: left 0.8s;
+    }
+
+    .pub-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .pub-item:hover {
+      transform: translateY(-12px) scale(1.02);
+      border-color: var(--accent);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    }
+
+    .pub-item:hover::before {
+      left: 100%;
+    }
+
+    .pub-title a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.3rem;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .pub-title a:hover {
+      color: var(--highlight);
+      text-shadow: 0 0 10px rgba(94,234,212,0.5);
+    }
+
+    .pub-authors strong {
+      color: var(--highlight);
+      font-weight: 700;
+      text-shadow: 0 0 8px rgba(94,234,212,0.3);
+    }
+
+    .tag {
+      background: rgba(59,130,246,0.2);
+      color: var(--accent);
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid rgba(59,130,246,0.4);
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .tag:hover {
+      background: var(--accent);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .tag.selected {
+      background: rgba(94,234,212,0.25);
+      color: var(--highlight);
+      border-color: var(--highlight);
+      animation: selectedPulse 3s infinite;
+    }
+
+    @keyframes selectedPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(94,234,212,0.4); }
+      50% { box-shadow: 0 0 20px 8px rgba(94,234,212,0.2); }
+    }
+
+    .links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      margin-right: 1.8rem;
+      position: relative;
+      transition: all 0.3s;
+    }
+
+    .links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--highlight);
+      transition: width 0.3s;
+    }
+
+    .links a:hover {
+      color: var(--highlight);
+      transform: translateY(-2px);
+    }
+
+    .links a:hover::after {
+      width: 100%;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2.6rem; }
+      .controls { flex-direction: column; }
+      .pub-item { padding: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>MD SHAHIDUL KHAN PAPPO</h1>
+    <p class="subtitle">Research Publications</p>
+  </header>
+
+  <div class="container">
+    <div class="controls">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="search" placeholder="Search papers, authors, venues..." />
+      </div>
+      <select id="yearFilter"><option value="all">All Years</option></select>
+      <select id="typeFilter">
+        <option value="all">All Types</option>
+        <option value="journal">Journal</option>
+        <option value="conference">Conference</option>
+        <option value="preprint">Preprint</option>
+        <option value="thesis">Thesis</option>
+      </select>
+      <div class="stats">Found: <span id="totalCount">0</span> Papers</div>
+    </div>
+
+    <div class="publication-list" id="pubList"></div>
+  </div>
+
+  <script>
+    const publications = [
+      {
+          title: "RenalAI: An Explainable Machine Learning Framework for Real-Time Early Prediction of CKD Using Electronic Health Records",
+          authors: "Md Sadi Al Huda, Esrath Kanon, Md. Shahidul Khan Pappo, Md. Shamsul Alam, Md. Asraf Ali xAI Research Team",
+          venue: "28th International Conference on Computer and Information Technology 2025",
+          year: 2025,
+          type: "conference",
+          doi: "",
+          pdf: "",
+        },
+    ];
+
+    publications.sort((a, b) => b.year - a.year);
+
+    const pubList = document.getElementById('pubList');
+    const searchInput = document.getElementById('search');
+    const yearFilter = document.getElementById('yearFilter');
+    const typeFilter = document.getElementById('typeFilter');
+    const totalCount = document.getElementById('totalCount');
+
+    function animateCounter(target, duration = 1000) {
+      let start = 0;
+      const increment = target / (duration / 16);
+      const timer = setInterval(() => {
+        start += increment;
+        if (start >= target) {
+          totalCount.textContent = target;
+          clearInterval(timer);
+        } else {
+          totalCount.textContent = Math.floor(start);
+        }
+      }, 16);
+    }
+
+    function renderPublications() {
+      pubList.innerHTML = '';
+      let visible = 0;
+
+      const years = [...new Set(publications.map(p => p.year))].sort((a,b) => b-a);
+      yearFilter.innerHTML = '<option value="all">All Years</option>';
+      years.forEach(y => {
+        const opt = document.createElement('option');
+        opt.value = y; opt.textContent = y;
+        yearFilter.appendChild(opt);
+      });
+
+      const searchTerm = searchInput.value.toLowerCase();
+      const selectedYear = yearFilter.value;
+      const selectedType = typeFilter.value;
+
+      publications.forEach((pub, i) => {
+        const matches = pub.title.toLowerCase().includes(searchTerm) ||
+                       pub.authors.toLowerCase().includes(searchTerm) ||
+                       pub.venue.toLowerCase().includes(searchTerm);
+        const yearMatch = selectedYear === 'all' || pub.year == selectedYear;
+        const typeMatch = selectedType === 'all' || pub.type === selectedType;
+
+        if (matches && yearMatch && typeMatch) {
+          visible++;
+          const item = document.createElement('div');
+          item.className = 'pub-item';
+          setTimeout(() => item.classList.add('visible'), i * 120);
+
+          const authorsHTML = pub.authors.replace(/Your Name/gi, '<strong>Your Name</strong>');
+
+          item.innerHTML = `
+            <h3 class="pub-title">
+              <a href="${pub.doi || pub.pdf}" target="_blank">${pub.title}</a>
+              ${pub.highlight ? '<span class="tag selected">Starred</span>' : ''}
+            </h3>
+            <p class="pub-authors">${authorsHTML}</p>
+            <p class="pub-venue" style="color:var(--accent);font-weight:500;">${pub.venue}, ${pub.year}</p>
+            <div class="pub-meta" style="margin-top:1rem;">
+              <span class="tag">${pub.type}</span>
+              ${pub.pdf ? `<div class="links"><a href="${pub.pdf}" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a></div>` : ''}
+              ${pub.code ? `<div class="links"><a href="${pub.code}" target="_blank"><i class="fab fa-github"></i> Code</a></div>` : ''}
+            </div>
+          `;
+          pubList.appendChild(item);
+        }
+      });
+
+      animateCounter(visible);
+      if (visible === 0) {
+        pubList.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:5rem;font-size:1.3rem;">No papers found. Try adjusting filters.</p>';
+      }
+    }
+
+    [searchInput, yearFilter, typeFilter].forEach(el => {
+      el.addEventListener('input', renderPublications);
+      el.addEventListener('change', renderPublications);
+    });
+
+    // Initial load with animation
+    setTimeout(renderPublications, 500);
+  </script>
+</body>
+</html>
